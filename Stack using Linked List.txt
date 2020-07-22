@@ -1,0 +1,90 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node*next;
+};
+typedef struct node Node;
+Node*head=NULL;
+Node*top=NULL;
+void push()
+{
+    Node*temp;
+    temp=(Node*)malloc(sizeof(Node));
+    scanf("%d",&temp->data);
+    temp->next=NULL;
+    if(temp==NULL)
+    {
+        printf("overflow");
+        exit(0);
+    }
+    if(head==NULL)
+    {
+        head=top=temp;
+    }
+    else
+    {
+        Node*p=head;
+        while(p->next!=NULL)
+        p=p->next;
+        p->next=temp;
+        top=temp;
+    }
+}
+void pop()
+{
+    if(head==NULL)
+    {
+        printf("underflow");
+        exit(0);
+    }
+    else
+    {
+        Node*p=head;
+        while(p->next->next!=NULL)
+        p=p->next;
+        Node*q=p->next;
+        p->next=NULL;
+        top=p;
+        printf("deleted element=%d\n",q->data);
+        free(q);
+    }
+}
+void display()
+{
+    Node*p=head;
+    while(p!=NULL)
+    {
+        printf("%d\n",p->data);
+        p=p->next;
+    }
+}
+int main()
+{
+    int choice;
+    do
+    {
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            push();
+            break;
+            case 2:
+            pop();
+            break;
+            case 3:
+            display();
+            break;
+            case 4: 
+            printf("exit");
+            break;
+            default:
+            printf("invalid option");
+            break;
+        }
+    }
+    while(choice!=4);
+    return 0;
+}
