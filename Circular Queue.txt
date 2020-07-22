@@ -1,0 +1,75 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define N 5
+int cq[N];
+int front=-1;
+int rear=-1;
+void enqueue();
+void dequeue();
+void display();
+int main()
+{
+    int choice;
+    do{
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            enqueue();
+            break;
+            case 2:
+            dequeue();
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            printf("exit");
+            break;
+            default:
+            printf("invalid");
+            break;
+        }
+    }
+    while(choice!=4);
+    return 0;
+}
+void enqueue()
+{
+    if(front==(rear+1)%N)
+    {
+        printf("queue full\n");
+        exit(0);
+    }
+    else
+    {
+        int x;
+        scanf("%d",&x);
+        if(front==-1)
+        front=0;
+        rear=(rear+1)%N;
+        cq[rear]=x;
+    }
+}
+void dequeue()
+{
+    if(front==-1)
+    {
+        printf("queue empty\n");
+        exit(0);
+    }
+    else
+    {
+        printf("deleted element=%d\n",cq[front]);
+        if(front==rear)
+        front=rear=-1;
+        else
+        front=(front+1)%N;
+    }
+}
+void display()
+{
+    int i;
+    for(i=front;i<=rear;i++)
+    printf("%d\n",cq[i]);
+}
