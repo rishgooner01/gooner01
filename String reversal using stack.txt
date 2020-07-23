@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#define N 5
+char string[N];
+char stack[N];
+char reverse[N];
+int top=-1;
+void push(char x);
+char pop();
+int main()
+{
+gets(string);
+int i;
+for(i=0;i<strlen(string);i++)
+push(string[i]);
+for(i=0;i<strlen(string);i++)
+reverse[i]=pop();
+puts(reverse);
+return 0;
+}
+void push(char x)
+{
+if(top==N-1)
+{
+printf("overflow");
+exit(0);
+}
+else
+{
+top++;
+stack[top]=x;
+}
+}
+char pop()
+{
+if(top==-1)
+{
+printf("underflow");
+exit(0);
+}
+else
+{
+char y=stack[top];
+top--;
+return y;
+}
+}
