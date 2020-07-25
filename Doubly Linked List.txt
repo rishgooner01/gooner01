@@ -1,0 +1,185 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node*next;
+    struct node*prev;
+};
+typedef struct node Node;
+Node*head=NULL;
+void createlist()
+{
+    Node*temp;
+    temp=(Node*)malloc(sizeof(Node));
+    scanf("%d",&temp->data);
+    temp->next=NULL;
+    temp->prev=NULL;
+    if(head==NULL)
+    {
+        head=temp;
+    }
+    else
+    {
+        Node*p=head;
+        while(p->next!=NULL)
+        p=p->next;
+        p->next=temp;
+        temp->prev=p;
+    }
+}
+void insertfirst()
+{
+    Node*t;
+    t=(Node*)malloc(sizeof(Node));
+    scanf("%d",&t->data);
+    t->next=NULL;
+    t->prev=NULL;
+    Node*p=head;
+    head=t;
+    t->next=p;
+    p->prev=t;
+}
+void insertlast()
+{
+    Node*t;
+    t=(Node*)malloc(sizeof(Node));
+    scanf("%d",&t->data);
+    t->next=NULL;
+    t->prev=NULL;
+    Node*p=head;
+    while(p->next!=NULL)
+    p=p->next;
+    p->next=t;
+    t->prev=p;
+}
+void insertrandom()
+{
+    Node*t;
+    t=(Node*)malloc(sizeof(Node));
+    scanf("%d",&t->data);
+    t->next=NULL;
+    t->prev=NULL;
+    int pos;
+    scanf("%d",&pos);
+    Node*x=head;
+    Node*y;
+    int count=1;
+    while(count!=pos)
+    {
+        y=x;
+        x=x->next;
+        count++;
+    }
+    y->next=t;
+    t->prev=y;
+    t->next=x;
+    x->prev=t;
+}
+void display()
+{
+    Node*p=head;
+    while(p!=NULL)
+    {
+        printf("%d\n",p->data);
+        p=p->next;
+    }
+}
+void deletefirst()
+{
+    Node*p=head;
+    printf("deleted element=%d\n",p->data);
+    head=head->next;
+    p->next=NULL;
+    head->prev=NULL;
+    free(p);
+}
+void deletelast()
+{
+    Node*p=head;
+    while(p->next->next!=NULL)
+    p=p->next;
+    Node*q=p->next;
+    p->next=NULL;
+    q->prev=NULL;
+    printf("deletd element=%d\n",q->data);
+    free(q);
+}
+void deleterandom()
+{
+    int pos;
+    scanf("%d",&pos);
+    Node*x=head;
+    Node*y;
+    int count=1;
+    while(count!=pos)
+    {
+        y=x;
+        x=x->next;
+        count++;
+    }
+    y->next=x->next;
+    x->next->prev=y;
+    printf("deleted element=%d\n",x->data);
+    x->prev=NULL;
+    x->next=NULL;
+    free(x);
+}
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    int i;
+    for(i=0;i<n;i++)
+    createlist();
+    display();
+    int choice;
+    do{
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            insertfirst();
+            break;
+            case 2:
+            insertlast();
+            break;
+            case 3:
+            insertrandom();
+            break;
+            case 4:
+            printf("end of insertion\n");
+            break;
+            default:
+            printf("invalid");
+            break;
+        }
+    }
+    while(choice!=4);
+    display();
+    int c;
+    do{
+        scanf("%d",&c);
+        switch(c)
+        {
+            case 1:
+            deletefirst();
+            break;
+            case 2:
+            deletelast();
+            break;
+            case 3:
+            deleterandom();
+            break;
+            case 4:
+            printf("end of deletion\n");
+            break;
+            default:
+            printf("invalid");
+            break;
+        }
+    }
+    while(c!=4);
+    display();
+    return 0;
+}
